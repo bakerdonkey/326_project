@@ -58,6 +58,10 @@ for course in classes :
     course.save()
 
 for course in classes :
+    #TODO: fix prereqs by forcing prereqs to be a smaller number
+    # and choosing an arbitrary amount of prereqs
+    # Then, modify tree.html, and simple_tree_config.js to use
+    # the data from the models
     candidate_prereq = classes[fake.random_int(0, len(classes)) - 1]
     if candidate_prereq != course :
         course.prereqs.add(candidate_prereq)
