@@ -70,10 +70,13 @@
                 <p>Rating: {{course.1}}</p>
                 <p><strong>Sessions </strong></p>
                 {% for session in course.2 %}
-                <p>
-                  <button type="button" class="btn btn-outline-primary">{{session.start_time.time}}-{{session.end_time.time}}</button>
-                  {{session.instructor}} 
-                </p> 
+                    <form method="post">
+                      <p>
+                        <input type="session_id" type="hidden" value="{{session.pk}}">
+                        <button type="button" class="btn btn-outline-primary" type="submit">{{session.start_time.time}}-{{session.end_time.time}}</button>
+                        {{session.instructor}}
+                      </p>
+                    </form>
                 {% endfor %}
                 <div class="sessionList">
                   

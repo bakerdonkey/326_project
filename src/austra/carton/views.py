@@ -58,6 +58,14 @@ def calendar(request):
     # sessions describes all of the class sessions that will be displayed by the calendar
     # Expected to store the items as a list with the format:
     # [course name, start time, end time, days of the week] for each session
+    session_changed_pk = request.POST.get('session_id', '')
+    if session_changed_pk:
+        session_changed = Session.objects.get(pk=session_changed_pk)
+        if session_changed not in request.user.profile.sessions_current:
+            request.user.profile.sessions_current.add(session_changed)
+        else:
+            request.user.profile.sessions_current.remove(session_changed)
+        request.user.profile.save()
 
     all_courses = Course.objects.all()
     all_sessions = all_sessions = request.user.profile.sessions_current.all()
