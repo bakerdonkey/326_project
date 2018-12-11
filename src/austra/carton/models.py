@@ -18,11 +18,13 @@ class Course(models.Model) :
     
     @property
     def get_rating(self) :
-        #TODO check if null! This will fail if course or instructor is null
         return (self.updoots/self.doots) * 5.0
 
     def display_prereqs(self) :
         return ", ".join(prereqs.code for prereqs in self.prereqs.all())
+
+    def get_absolute_url(self) :
+        return reverse("instructor-detail", args=[str(self.id)])
 
 def get_future(start_time=None, n_hours=1):
     """A function that returns a datetime object n_hours from now, or a passed datetime object"""
@@ -43,10 +45,8 @@ class Session(models.Model) :
 
     @property
     def get_rating(self) :
-        #TODO check if null! This will fail if course or instructor is null
         return self.course.rating + self.instructor.rating
 
-    #TODO: verify this is proper usage of reverse(). Where is self.id declared?
     def get_absolute_url(self) :
         return reverse("session-detail", args=[str(self.id)])
 
