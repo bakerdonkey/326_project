@@ -22,7 +22,7 @@ class Course(models.Model) :
         return ", ".join(prereqs.code for prereqs in self.prereqs.all())
 
     def get_absolute_url(self) :
-        return reverse("instructor-detail", args=[str(self.id)])
+        return reverse("course-detail", args=[str(self.id)])
 
 def get_future(start_time=None, n_hours=1):
     """A function that returns a datetime object n_hours from now, or a passed datetime object"""
