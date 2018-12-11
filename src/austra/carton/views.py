@@ -147,14 +147,6 @@ def profile_page(request):
         'courses': search_courses(search_text)
     })
 
-# def doot(request):
-#     #template = get_template('course_detail.html')
-#     if(request.method == "POST"):
-#         if('upd' in request.POST):
-#             updooted = request.user.profile.updooted.all()
-#         if('downd' in request.POST):
-#             downdooted = request.user.profile.downdooted.all()
-
 
 
 class CommentForm(forms.Form):
@@ -264,6 +256,3 @@ class InstructorCreate(PermissionRequiredMixin, CreateView):
     template_name = 'instructor_new.html'
 
 
-#class InstructorDelete(UpdateView):
-#    model = Instructor
-#    success_url = reverse_lazy('instructors')
