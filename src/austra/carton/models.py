@@ -13,16 +13,16 @@ class Course(models.Model) :
     updoots = models.IntegerField(default=1)
     doots = models.IntegerField(default=1)
     rating = models.IntegerField(default=4)
-    #def __str__(self) :
-    #    return f"{self.code} {self.name}"
-    
+
     @property
     def get_rating(self) :
-        #TODO check if null! This will fail if course or instructor is null
         return (self.updoots/self.doots) * 5.0
 
     def display_prereqs(self) :
         return ", ".join(prereqs.code for prereqs in self.prereqs.all())
+
+    def get_absolute_url(self) :
+        return reverse("course-detail", args=[str(self.id)])
 
 def get_future(start_time=None, n_hours=1):
     """A function that returns a datetime object n_hours from now, or a passed datetime object"""
@@ -43,10 +43,8 @@ class Session(models.Model) :
 
     @property
     def get_rating(self) :
-        #TODO check if null! This will fail if course or instructor is null
         return self.course.rating + self.instructor.rating
 
-    #TODO: verify this is proper usage of reverse(). Where is self.id declared?
     def get_absolute_url(self) :
         return reverse("session-detail", args=[str(self.id)])
 
@@ -70,10 +68,6 @@ class Comment(models.Model) :
     name = models.CharField(max_length=50)
     comment_text = models.CharField(max_length = 500)
     date = models.DateTimeField(auto_now_add=True) #we set the date when we add it to the DB
-
-#class DootRecord(models.Model):
-#    is_updoot = models.BooleanField
-#    course = models.ForeignKey("Course", on_delete=models.CASCADE, null=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
