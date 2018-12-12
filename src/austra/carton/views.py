@@ -82,10 +82,8 @@ def search_courses(search_text):
     return courses
 
 
-#FIXME: implement redirect_field_name in decorator once authorization is restructured to be project-wide
 @login_required(login_url='/carton/accounts/login')
 def calendar(request):
-    #FIXME: no verification at all lol
     if(request.method == "POST"): #user tried to add a session to fullCalendar
         added_pk = request.POST.get('added_session')
         removed_pk = request.POST.get('removed_session')
